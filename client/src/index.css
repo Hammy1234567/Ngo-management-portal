@@ -1,0 +1,132 @@
+@import url("https://fonts.googleapis.com/css2?family=Anek+Devanagari:wght@300;400&display=swap");
+/* antd override */
+
+* {
+  font-family: "Anek Devanagari", sans-serif;
+}
+input {
+  border-radius: 2px;
+  border: 1px solid rgba(128, 128, 128, 0.71) !important;
+  height: 40px !important;
+}
+input:focus,
+.ant-picker {
+  outline: none !important;
+  box-shadow: none !important;
+  border: 1px solid black !important;
+}
+.ant-form-item {
+  margin: 10px 0 !important;
+}
+.ant-picker-input input {
+  border: none !important;
+}
+.ant-picker {
+  height: 40px !important;
+  border-radius: 2px;
+  border: 1px solid rgba(128, 128, 128, 0.71) !important;
+}
+label {
+  font-size: 16px !important;
+  color: black;
+}
+ant-form-item {
+  margin: 10px 0 !important;
+}
+/* common styling */
+.spinner-parent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.604);
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  height: 100%;
+  width: 100%;
+  position: fixed;
+}
+p {
+  color: black !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+.page-title {
+  font-size: 30px;
+  color: rgba(0, 0, 0, 0.827);
+  font-weight: bold;
+}
+.spinner-border {
+  width: 5rem;
+  height: 5rem;
+  color: white !important;
+}
+
+.card-title {
+  font-size: 22px;
+  font-weight: bold;
+  color: rgba(0, 0, 0, 0.732);
+}
+.normal-text {
+  font-size: 1.25rem;
+}
+/* 
+.image {
+  display: inline-block;
+} */
+.card {
+  box-shadow: 0 0 2px rgb(172, 171, 171);
+  border-radius: 0 !important;
+}
+.primary-button {
+  background-color: #bab86c !important;
+  border-color: #bab86c !important;
+  height: 40px !important;
+  width: 100% !important;
+  color: white !important;
+  font-size: 16px !important;
+  /* width: max-content !important; */
+}
+.button-ApplyNgo {
+  background-color: #bab86c !important;
+  border-color: #bab86c !important;
+  height: 40px !important;
+  width: 100% !important;
+  color: white !important;
+  font-size: 16px !important;
+  width: max-content !important;
+}
+.anchor {
+  color: black !important;
+  text-decoration: underline;
+  font-size: 17px !important;
+  cursor: pointer;
+}
+.anchor:hover {
+  text-decoration: underline !important;
+}
+.cursor-pointer {
+  cursor: pointer;
+}
+
+/* authentication pages */
+.authentication {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #bab86c;
+}
+.authentication-form {
+  width: 400px;
+}
+.authentication .card-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  background-color: rgb(255, 148, 16);
+  color: white !important;
+  max-width: max-content !important;
+  padding: 7px 15px;
+  margin-left: -40px;
+  border-bottom-left-radius: 10px;
+}
