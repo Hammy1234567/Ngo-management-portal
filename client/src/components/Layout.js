@@ -28,7 +28,7 @@ function Layout({ children }) {
     },
     {
       name: "Profile",
-      path: "/profile",
+      path: `/user/UserProfile/${user?._id}`,
       icon: "ri-user-fill",
     },
   ];

@@ -72,6 +72,10 @@ p {
 .normal-text {
   font-size: 1.25rem;
 }
+.abnormal-text {
+  font-size: 1.5rem;
+}
+
 /* 
 .image {
   display: inline-block;
@@ -151,6 +155,21 @@ th.ant-table-cell {
   box-shadow: 0 10px 10px 10px #674188;
 }
 
+.typography:hover {
+  transform: translateZ(10px) rotateX(10deg) rotateY(10deg);
+  animation: load89234 2s infinite;
+}
+/* .typography {
+  font-family: "Oswald", sans-serif;
+  font-size: 18px;
+} */
+.card-header {
+  font-family: "Oswald", sans-serif;
+}
+.ngo_heading {
+  color: rgba(0, 0, 0, 0.744);
+  letter-spacing: 1px;
+}
 /*layout just for animated button*/
 
 .button {
@@ -271,4 +290,21 @@ th.ant-table-cell {
 
 .button:hover .button_lg::after {
   background-color: #fff;
+}
+.custom-table td {
+  border: 0.2px solid rgba(0, 0, 0, 0.24);
+}
+
+.custom-table {
+  border: 0.5px solid rgba(0, 0, 0, 0.251);
+}
+.table-header {
+  font-size: 25px;
+  letter-spacing: 1px;
+  font-weight: bolder;
+}
+
+.table-row {
+  font-size: 20px;
+  color: #0f1923c7;
 }

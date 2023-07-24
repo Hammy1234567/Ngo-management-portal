@@ -13,6 +13,7 @@ const ngoSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+
     type: {
       type: String,
       required: true,
@@ -49,6 +50,10 @@ const ngoSchema = new mongoose.Schema(
     status: {
       type: String,
       default: "pending",
+    },
+    donation: {
+      type: Number,
+      default: 1000,
     },
   },
   {

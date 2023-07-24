@@ -6,17 +6,29 @@ import { useDispatch, useSelector } from "react-redux";
 import { showLoading, hideLoading } from "../redux/alertsSlice";
 import { toast } from "react-hot-toast";
 import axios from "axios";
-import { useNavigate, useParams } from "react-router-dom";
+import ngoManagementQRCode from "../../src/ngo-management__qrcode.png";
+
+import {
+  Link,
+  Navigate,
+  Route,
+  useNavigate,
+  useParams,
+} from "react-router-dom";
 import NgoForm from "../components/NgoForm";
 import moment from "moment";
 import Avatar from "@mui/material/Avatar";
 import Stack from "@mui/material/Stack";
+import Stripe from "stripe";
+import { Table } from "antd";
+import BookDonation from "./Ngo/BookDonation";
 
 function ViewNgoData() {
   const { user } = useSelector((state) => state.user);
   const [ngo, setNgo] = useState(null);
   const params = useParams();
   const dispatch = useDispatch();
+
   const getNgoData = async () => {
     try {
       dispatch(showLoading());
@@ -42,119 +54,163 @@ function ViewNgoData() {
   useEffect(() => {
     getNgoData();
   }, []);
-  return (
-    <Layout>
-      {/* {ngo && (
-        <div className="view-ngo-data">
-          <h1 className="page-title">{ngo.name}</h1>
-          <hr />
-          <h1 className="normal-text p-3">
-            <div>
-              <b>TYPE : </b> {ngo.type}
-            </div>
-            <br></br>
-            <div>
-              <b>Phone Number : </b> {ngo.phoneNumber}
-            </div>
-            <br></br>
-            <div>
-              <b>Official Website : </b>
-              {ngo.website}
-            </div>
-            <br></br>
-            <div>
-              <b>address : </b>
-              {ngo.address}
-            </div>
-            <br></br>
-            <div>
-              <b>experience : </b>
-              {ngo.experience}
-            </div>
-            <br></br>
-            <div>
-              <b>Timings : </b>
-              <div>{ngo.timings[0]}</div>
-              <div>{ngo.timings[1]}</div>
-            </div>
-            <br></br>
-          </h1>
-        </div>
-      )} */}
-      {ngo && (
-        <div>
-          <Row gutter={20}>
-            <Col span={8} xs={24} sm={24} lg={8}>
-              <h1 className="page-title">{ngo.name}</h1>
-              <hr />
-            </Col>
-          </Row>
+  if (ngo) {
+    const columns = [
+      {
+        title: "Field",
+        dataIndex: "field",
+        key: "field",
+        width: "10%",
+        style: { fontWeight: "bold", fontSize: "20px" },
+        className: "table-header",
+      },
+      {
+        title: "Value",
+        dataIndex: "value",
+        key: "value",
+        width: "10%",
+        style: { fontSize: "20px" },
+        className: "table-row",
+      },
+    ];
 
-          <Row gutter={20}>
-            <Col span={8} xs={24} sm={24} lg={8}>
-              <Stack direction="row" spacing={2}>
-                <Avatar
-                  alt=""
-                  src={ngo.logo}
-                  sx={{ width: 100, height: 100 }}
-                />
-              </Stack>
-              {/* <img src={ngo.logo}></img> */}
-              <hr />
-            </Col>
-          </Row>
-          <Row gutter={20}>
-            <Col span={8} xs={24} sm={24} lg={8}>
-              <div className="normal-text">
-                <b>TYPE : </b> {ngo.type}
-              </div>
-            </Col>
+    const dataSource = [
+      {
+        key: "logo",
+        field: "Logo",
+        value: (
+          <Avatar
+            src={ngo.logo}
+            alt="NGO Logo"
+            // style={{ width: "160px", height: "160px", marginRight: "10px" }}
+            sx={{
+              width: 150,
+              height: 150,
 
-            <Col span={8} xs={24} sm={24} lg={8}>
-              <div className="normal-text">
-                <b>Phone Number : </b> {ngo.phoneNumber}
-              </div>
-            </Col>
+              objectFit: "cover",
+            }}
+          />
+        ),
+      },
+      {
+        key: "1",
+        field: <b>Name</b>,
+        value: ngo.name,
+      },
+      {
+        key: "2",
+        field: "Type",
+        value: ngo.type,
+      },
+      {
+        key: "3",
+        field: "Original Website",
+        value: ngo.website,
+      },
+      {
+        key: "4",
+        field: "Address",
+        value: ngo.type,
+      },
+      {
+        key: "5",
+        field: "Timings",
+        value: ngo.timings[0] - ngo.timings[1],
+      },
+      {
+        key: "6",
+        field: "Phone Number",
+        value: ngo.phoneNumber,
+      },
+      {
+        key: "7",
+        field: "Description",
+        value: ngo.description,
+      },
+      {
+        key: "8",
+        field: "Activities",
+        value: ngo.activities,
+      },
+      {
+        key: "9",
+        field: "Experience",
+        value: ngo.experience,
+      },
+      {
+        key: "10",
+        field: "Donation Raised",
+        value: ngo.donation,
+      },
+      {
+        key: "11",
+        field: "Donation gateway",
+        value: (
+          <a
+            className="custom-dbox-popup"
+            href="https://donorbox.org/ngo-management"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img
+              src="https://donorbox.org/images/png-donate/button-medium-blue.png"
+              alt="Donate"
+            />
+          </a>
+        ),
+      },
+      {
+        key: "12",
+        field: "Donation QR Code",
+        value: (
+          <img
+            src={ngoManagementQRCode}
+            alt="QR Code"
+            style={{
+              width: "15vw",
+              height: "26vh",
+              borderRadius: "10px",
+              border: "3px solid #fff",
+            }}
+          />
+        ),
+      },
+      // add more rows as needed
+    ];
 
-            <Col span={8} xs={24} sm={24} lg={8}>
-              <div className="normal-text">
-                <b>Official Website : </b> {ngo.website}
-              </div>
-            </Col>
+    return (
+      <Layout>
+        {ngo && (
+          <div>
+            <h1 className="page-title" style={{ fontSize: "50px" }}>
+              {ngo.name}
+            </h1>
+            <hr />
+            <Table
+              dataSource={dataSource}
+              columns={columns}
+              pagination={false}
+              showHeader={false}
+              style={{ borderCollapse: "separate", borderSpacing: "0 10px" }}
+              className="custom-table"
+            />
 
-            <Col span={8} xs={24} sm={24} lg={8}>
-              <div className="normal-text">
-                <b>Address : </b> {ngo.address}
-              </div>
-            </Col>
-
-            <Col span={8} xs={24} sm={24} lg={8}>
-              <div className="normal-text">
-                <b>Experience : </b> {ngo.experience}
-              </div>
-            </Col>
-
-            <Col span={8} xs={24} sm={24} lg={8}>
-              <div className="normal-text">
-                <b>Timings : </b> {ngo.timings[0]} - {ngo.timings[1]}
-              </div>
-            </Col>
-
-            <Col span={8} xs={24} sm={24} lg={8}>
-              <div className="normal-text">
-                <b>Description : </b> {ngo.description}
-              </div>
-            </Col>
-            <Col span={8} xs={24} sm={24} lg={8}>
-              <div className="normal-text">
-                <b>Activities : </b> {ngo.activities}
-              </div>
-            </Col>
-          </Row>
-        </div>
-      )}
-    </Layout>
-  );
+            <img
+              src="https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Y2hhcml0eXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60"
+              style={{
+                width: "30vw",
+                height: "40vh",
+                objectFit: "cover",
+                borderRadius: "50%",
+                marginLeft: "20px",
+                border: "3px solid #fff",
+              }}
+            />
+          </div>
+        )}
+      </Layout>
+    );
+  }
 }
 
 export default ViewNgoData;

@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import { Toaster } from "react-hot-toast";
@@ -12,7 +12,18 @@ import Notifications from "./pages/Notifications";
 import Userslist from "./pages/Admin/Userslist";
 import NgosList from "./pages/Admin/NgosList";
 import Profile from "./pages/Ngo/Profile";
+import BookDonation from "./pages/Ngo/BookDonation";
 import ViewNgoData from "./pages/ViewNgoData";
+import "bootstrap/dist/css/bootstrap.min.css";
+import PaymentComponent from "./PaymentWidget/PaymentComponent";
+import {
+  Container,
+  Jumbotron,
+  Button,
+  Image,
+  TabContainer,
+} from "react-bootstrap";
+import UserProfile from "./pages/UserProfile";
 
 function App() {
   const { loading } = useSelector((state) => state.alerts);
@@ -93,7 +104,23 @@ function App() {
             </ProtectedRoute>
           }
         />
+        <Route
+          path="/book-donation/:ngoId"
+          element={
+            <ProtectedRoute>
+              <BookDonation />
+            </ProtectedRoute>
+          }
+        />
 
+        <Route
+          path="/user/UserProfile/:userId"
+          element={
+            <ProtectedRoute>
+              <UserProfile></UserProfile>
+            </ProtectedRoute>
+          }
+        />
         <Route
           path="/view-ngo-data/:ngoId"
           element={

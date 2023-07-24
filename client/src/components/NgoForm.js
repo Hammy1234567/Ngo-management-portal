@@ -14,6 +14,15 @@ function NgoForm({ onFinish, initialValues }) {
     return e && e.fileList;
   };
 
+  const getQrcode = (e) => {
+    console.log("Upload event:", e);
+
+    if (Array.isArray(e)) {
+      return e;
+    }
+    return e && e.fileList;
+  };
+
   return (
     <Form
       layout="vertical"
@@ -68,6 +77,7 @@ function NgoForm({ onFinish, initialValues }) {
             </Upload>
           </Form.Item>
         </Col>
+
         <Col span={8} xs={24} sm={24} lg={8}>
           <Form.Item
             required

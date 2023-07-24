@@ -5,6 +5,9 @@ const Ngo = require("../models/NgoModel");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const authmiddleware = require("../middlewares/authMiddleware");
+const stripe = require("stripe")(
+  "sk_test_51MfKmlSIhGiutLcqCrtrjGjCqaWjdQIXlkMRINUKU83cCWVr524qrUPDuvU63lQRPNl1HfvYnYYVgAwHvSFGlDd700Im8TDBGd"
+);
 
 router.post("/register", async (req, res) => {
   try {
@@ -173,4 +176,14 @@ router.get("/get-all-approved-ngos", authmiddleware, async (req, res) => {
       .send({ message: "Error applying Ngo account", success: false, error });
   }
 });
+
+router.post("/create-payment-intent", authmiddleware, async (req, res) => {
+  const { amount } = req.body;
+  const paymentIntent = await stripe.paymentIntents.create({
+    amount,
+    currency: "usd",
+  });
+  res.json({ clientSecret: paymentIntent.client_secret });
+});
+
 module.exports = router;
